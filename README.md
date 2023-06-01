@@ -75,7 +75,7 @@ The card can be configured through the following attributes:
 |modern:| Optional |`yes`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `yes`| Display autarky and ratio as a prercentage. Set to `no` to hide (`yes/no`)|
-
+|show_temp:| Optional| `no`| Display AC and DC temparature of Inverter. (`yes/no`)|
 
 ### Battery
 Note that the card will always display batter power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
@@ -164,6 +164,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |inverter_status_59: | **Required** | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.aux_output_power` | Auxilary Power (W) |
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
+|ac_temp_91: | Optional | `sensor.ac_temp`| Temperature of AC Radiator |
+|dc_temp_90: | Optional | `sensor.dc4_voltage`| Temperature of DC Transformer |
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
