@@ -509,7 +509,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect x="386" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
             <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" class="${show_aux === 'no' ? 'st12' : ''}"/>
             <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
-            <rect x="145.15" y="162" width="70" height="50" rx="7.5" ry="7.5" fill="none" stroke="${inverter_colour}" pointer-events="all"/>
+            <rect x="145.15" y="${show_temp==='no' ? '162' : '153'}" width="70" height="${show_temp==='no' ? '50' : '70'}" rx="10.5" ry="10.5" fill="none" stroke="${inverter_colour}" pointer-events="all"/>
             <rect id="pv1" x="0" y="40" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <rect id ="pv2" x="101" y="40" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}"/>
             <rect id="pv3" x="0" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}"/>
@@ -632,16 +632,16 @@ class SunsynkPowerFlowCard extends LitElement {
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
             </circle>
-            <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+            <path id="aux-line2" d="M 200 ${show_temp==='no' ? '162' : '152'} L 200 57 Q 200 47 210 47 L 237 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <path d="M 180.15 212 L 180.15 235" fill="none" stroke="${inverter_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path d="M 180.15 ${show_temp==='no' ? '212' : '223'} L 180.15 235" fill="none" stroke="${inverter_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === '0' ? 'transparent' : `${load_colour}`}">
               <animateMotion dur="${load_animation_speed}" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line2"/>
               </animateMotion>
             </circle>
-            <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>  
+            <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 ${show_temp==='no' ? '162' : '152'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>  
             
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54" height="79" viewBox="0 0 74 91"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)" fill="${inverter_colour}" stroke="none"> <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/> </g> </svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-9H5v3h6V7m0 4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
@@ -739,16 +739,16 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_load_freq_192" x="59%" y="49.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_175)}>
-              <text id="inverter_out_175" x="39.5%" y="${show_temp==='no' ? '46.5%' : '40.5%'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
+              <text id="inverter_out_175" x="39.5%" y="${show_temp==='no' ? '46.5%' : '44%'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_164)}>
-              <text id="inverter_out_164" x="39.5%" y="${show_temp==='no' ? '52%' : '43.5%'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
+              <text id="inverter_out_164" x="39.5%" y="${show_temp==='no' ? '52%' : '48%'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.ac_temp_91)} display="${show_temp === 'no' ? 'none' : ''}">
-              <text id="ac_temp_91" x="39.5%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">AC: ${stateObj37.state ? stateObj37.state : '0'} C</text>
+              <text id="ac_temp_91" x="39.5%" y="52%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">AC: ${stateObj37.state ? stateObj37.state : '0'} C</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_temp_90)} display="${show_temp === 'no' ? 'none' : ''}">
-              <text id="dc_temp_90" x="39.5%" y="49.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">DC: ${stateObj38.state ? stateObj38.state : '0'} C</text>
+              <text id="dc_temp_90" x="39.5%" y="56%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">DC: ${stateObj38.state ? stateObj38.state : '0'} C</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
               <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
